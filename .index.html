@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج أساسيات الأمن السيبراني</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f3f4f6;
+            direction: rtl;
+        }
+        .module-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .quiz-question {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .choice-btn {
+            transition: background-color 0.2s;
+        }
+        .correct {
+            background-color: #d1fae5; /* Green 100 */
+            border: 2px solid #10b981; /* Green 500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* Red 100 */
+            border: 2px solid #ef4444; /* Red 500 */
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8">
+
+    <!-- الحاوية الرئيسية للتطبيق -->
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10 border-t-8 border-indigo-600">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-indigo-800">برنامج أساسيات الأمن السيبراني للمبتدئين</h1>
+            <p class="text-xl text-gray-500 mt-2">تعلم كيف تحمي نفسك وبياناتك الرقمية.</p>
+        </header>
+
+        <!-- منطقة عرض المحتوى المتغيرة -->
+        <div id="content-area">
+            <!-- سيتم تحميل المحتوى هنا بواسطة JavaScript -->
+        </div>
+
+    </div>
+
+    <script>
+        // كائن تخزين بيانات الوحدات والمحتوى والاختبارات
+        const courseData = [
+            {
+                id: 1,
+                title: "التشفير والحماية",
+                description: "تعرّف على مفهوم التشفير وكيف يعمل كجدار حماية لبياناتك الشخصية والمهنية. سنستكشف الفرق بين المفتاح العام والخاص.",
+                content: `
+                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">التشفير: الجدار الواقي</h3>
+                    <p class="text-gray-700 mb-4">التشفير هو عملية تحويل المعلومات (البيانات) من صيغة مقروءة ومفهومة (النص العادي) إلى صيغة غير مفهومة تسمى "النص المشفر". هذا التحويل يتم باستخدام خوارزمية رياضية ومفتاح سري. الهدف هو ضمان أن البيانات لا يمكن قراءتها إلا من قبل الطرف الذي يمتلك المفتاح الصحيح لفك التشفير.</p>
+                    <h4 class="text-xl font-semibold text-indigo-600 mt-6 mb-3">أهمية التشفير</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 pr-5">
+                        <li>**السرية (Confidentiality):** ضمان عدم وصول الأشخاص غير المصرح لهم إلى البيانات الحساسة أثناء نقلها (مثل عمليات الدفع على الإنترنت).</li>
+                        <li>**التكامل (Integrity):** التأكد من أن البيانات لم يتم تعديلها أو التلاعب بها أثناء الإرسال.</li>
+                        <li>**المصادقة (Authentication):** التحقق من هوية المرسل والمستقبل باستخدام شهادات التشفير.</li>
+                    </ul>
+                `,
+                quiz: {
+                    question: "ما هو الهدف الرئيسي من عملية 'التشفير'؟",
+                    choices: [
+                        { text: "تسريع عملية نقل البيانات.", isCorrect: false },
+                        { text: "تحويل البيانات إلى صيغة غير مقروءة لضمان سريتها.", isCorrect: true },
+                        { text: "ضغط حجم الملفات.", isCorrect: false },
+                    ]
+                }
+            },
+            {
+                id: 2,
+                title: "الهندسة الاجتماعية",
+                description: "اكتشف كيف يستغل المخترقون علم النفس البشري بدلاً من نقاط الضعف التقنية. سنشرح أبرز هجمات الهندسة الاجتماعية وكيفية التعرف عليها.",
+                content: `
+                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">فن الخداع البشري</h3>
+                    <p class="text-gray-700 mb-4">الهندسة الاجتماعية هي مجموعة من التقنيات التي يستخدمها المهاجمون للتلاعب بالناس وإقناعهم بكشف معلومات سرية أو القيام بأفعال تضر بأمنهم. يعتمد هذا النوع من الهجمات على الخطأ البشري، وليس على الثغرات في البرمجيات.</p>
+                    <h4 class="text-xl font-semibold text-indigo-600 mt-6 mb-3">أنواع شائعة للهندسة الاجتماعية</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 pr-5">
+                        <li>**التصيد الاحتيالي (Phishing):** إرسال رسائل بريد إلكتروني أو نصوص تبدو وكأنها من مصدر موثوق (مثل بنكك أو مديرك) لسرقة بيانات تسجيل الدخول.</li>
+                        <li>**التنكر (Impersonation):** ادعاء المهاجم أنه شخص آخر (مثل فني دعم تقني) للحصول على الوصول المادي أو الرقمي.</li>
+                        <li>**إغراء الطعم (Baiting):** تقديم شيء مغري (مثل فلاش ميموري مجاني مصاب ببرنامج ضار) لتشجيع الضحية على ارتكاب خطأ أمني.</li>
+                    </ul>
+                `,
+                quiz: {
+                    question: "ما هو أبرز مثال على هجوم 'التصيد الاحتيالي'؟",
+                    choices: [
+                        { text: "سرقة كلمة مرور عبر رسالة بريد إلكتروني مزيفة من البنك.", isCorrect: true },
+                        { text: "اختراق شبكة الواي فاي الخاصة بك.", isCorrect: false },
+                        { text: "تنصيب برنامج ضار على جهازك دون علمك.", isCorrect: false },
+                    ]
+                }
+            },
+            {
+                id: 3,
+                title: "حماية الشبكات اللاسلكية",
+                description: "كيف تضمن أن شبكتك اللاسلكية (Wi-Fi) في المنزل أو العمل آمنة؟ سنتعلم كيفية إعداد كلمة مرور قوية وتغيير اسم الشبكة الافتراضي.",
+                content: `
+                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">تأمين الواي فاي المنزلي</h3>
+                    <p class="text-gray-700 mb-4">شبكة الواي فاي هي البوابة الرئيسية للإنترنت في منزلك، وإذا لم تكن آمنة، يمكن للمهاجمين الوصول إلى جميع أجهزتك المتصلة. يجب التعامل مع جهاز التوجيه (الراوتر) كجهاز حساس.</p>
+                    <h4 class="text-xl font-semibold text-indigo-600 mt-6 mb-3">خطوات أساسية لتأمين شبكتك</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 pr-5">
+                        <li>**استخدام تشفير WPA3:** هو أحدث وأقوى بروتوكول للتشفير للشبكات اللاسلكية، يليه WPA2 كحد أدنى. تجنب WEP.</li>
+                        <li>**كلمة مرور قوية ومختلفة:** يجب تغيير كلمة المرور الافتراضية للراوتر نفسه وكلمة مرور الواي فاي.</li>
+                        <li>**تعطيل الوصول عن بعد:** تأكد من تعطيل خاصية الوصول الإداري عن بعد لجهاز التوجيه (Remote Administration).</li>
+                    </ul>
+                `,
+                quiz: {
+                    question: "ما هو أفضل بروتوكول تشفير يجب استخدامه لحماية شبكة الواي فاي المنزلية؟",
+                    choices: [
+                        { text: "WEP", isCorrect: false },
+                        { text: "WPA2 أو WPA3", isCorrect: true },
+                        { text: "لا حاجة للتشفير", isCorrect: false },
+                    ]
+                }
+            },
+            {
+                id: 4,
+                title: "الأمن الشخصي على الإنترنت",
+                description: "من كلمات المرور إلى المصادقة متعددة العوامل (MFA)، ستعرف كيف تحافظ على حساباتك سليمة وتحمي هويتك الرقمية.",
+                content: `
+                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">خطوات لحماية هويتك الرقمية</h3>
+                    <p class="text-gray-700 mb-4">أمنك الشخصي على الإنترنت يعتمد على سلسلة من الإجراءات الوقائية. أهمها هو التعامل مع كلمات المرور وحماية الوصول إلى حساباتك.</p>
+                    <h4 class="text-xl font-semibold text-indigo-600 mt-6 mb-3">المصادقة متعددة العوامل (MFA)</h4>
+                    <p class="text-gray-700 mb-4">المصادقة متعددة العوامل تضيف طبقة حماية ثانية تتجاوز كلمة المرور. بدلاً من إدخال كلمة مرور فقط، يطلب النظام شيئاً آخر تمتلكه أنت فقط، مثل رمز يتم إرساله إلى هاتفك أو بصمة إصبعك.</p>
+                    <h4 class="text-xl font-semibold text-indigo-600 mt-6 mb-3">نصائح لإنشاء كلمة مرور قوية</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 pr-5">
+                        <li>**الطول:** يجب أن تكون طويلة (أكثر من 12 حرفاً).</li>
+                        <li>**التنوع:** دمج الأحرف الكبيرة والصغيرة والأرقام والرموز.</li>
+                        <li>**التفرد:** لا تستخدم كلمة المرور نفسها لحسابات متعددة.</li>
+                    </ul>
+                `,
+                quiz: {
+                    question: "ماذا يعني استخدام 'المصادقة متعددة العوامل (MFA)'؟",
+                    choices: [
+                        { text: "استخدام كلمة مرور واحدة لجميع الحسابات.", isCorrect: false },
+                        { text: "إضافة طبقة حماية ثانية (مثل رمز هاتف) بعد كلمة المرور.", isCorrect: true },
+                        { text: "تحديث برنامج مكافحة الفيروسات باستمرار.", isCorrect: false },
+                    ]
+                }
+            }
+        ];
+
+        // حالة التطبيق
+        let currentState = {
+            view: 'home', // 'home', 'module', 'quiz', 'results'
+            currentModuleId: null,
+            answers: {} // {1: true, 2: false, ...}
+        };
+
+        const contentArea = document.getElementById('content-area');
+
+        // -----------------------------------------------------------
+        // 1. وظائف العرض (Render Functions)
+        // -----------------------------------------------------------
+
+        function renderHome() {
+            contentArea.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    ${courseData.map(module => `
+                        <div class="module-card bg-indigo-50 border-r-4 border-indigo-500 p-6 rounded-xl shadow-md" onclick="showModule(${module.id})">
+                            <h2 class="text-2xl font-bold text-indigo-800">${module.title}</h2>
+                            <p class="text-gray-600 mt-2">${module.description}</p>
+                            <button class="mt-4 text-indigo-600 hover:text-indigo-800 font-semibold flex items-center">
+                                ابدأ التعلم
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="mt-12 text-center">
+                    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-200 disabled:opacity-50"
+                            onclick="showResults()" ${Object.keys(currentState.answers).length !== courseData.length ? 'disabled' : ''}>
+                        عرض النتائج النهائية
+                    </button>
+                    ${Object.keys(currentState.answers).length < courseData.length ? `<p class="text-sm text-gray-500 mt-2">أكمل جميع الاختبارات لعرض النتيجة.</p>` : ''}
+                </div>
+            `;
+        }
+
+        function renderModule(moduleId) {
+            const module = courseData.find(m => m.id === moduleId);
+            if (!module) {
+                renderHome();
+                return;
+            }
+
+            currentState.view = 'module';
+            currentState.currentModuleId = moduleId;
+            
+            contentArea.innerHTML = `
+                <button onclick="goBackToHome()" class="flex items-center text-indigo-600 hover:text-indigo-800 mb-6 font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    العودة للصفحة الرئيسية
+                </button>
+
+                <div class="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-inner border-r-4 border-indigo-500">
+                    <h2 class="text-3xl font-extrabold text-indigo-700 mb-4">${module.title}</h2>
+                    <p class="text-gray-500 mb-6 border-b pb-4">${module.description}</p>
+                    
+                    <div class="text-lg leading-relaxed">
+                        ${module.content}
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end">
+                        <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200"
+                                onclick="showQuiz(${module.id})">
+                            ابدأ الاختبار القصير
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuiz(moduleId, isReview = false) {
+            const module = courseData.find(m => m.id === moduleId);
+            if (!module) {
+                renderHome();
+                return;
+            }
+            
+            currentState.view = 'quiz';
+            currentState.currentModuleId = moduleId;
+            const quiz = module.quiz;
+            const existingAnswer = currentState.answers[moduleId];
+
+            let feedbackHTML = '';
+            if (existingAnswer !== undefined && isReview) {
+                const isCorrect = existingAnswer;
+                feedbackHTML = `
+                    <div class="p-4 rounded-lg mt-4 ${isCorrect ? 'bg-green-100 text-green-700 border border-green-400' : 'bg-red-100 text-red-700 border border-red-400'}">
+                        <p class="font-bold">${isCorrect ? 'إجابتك صحيحة!' : 'إجابتك خاطئة.'}</p>
+                    </div>
+                `;
+            }
+
+            contentArea.innerHTML = `
+                <button onclick="showModule(${moduleId})" class="flex items-center text-indigo-600 hover:text-indigo-800 mb-6 font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    العودة للمحتوى
+                </button>
+                
+                <h2 class="text-3xl font-bold text-indigo-800 mb-6 border-b pb-3">اختبار الوحدة: ${module.title}</h2>
+
+                <div class="quiz-question">
+                    <p class="text-xl font-semibold text-gray-800 mb-4">${quiz.question}</p>
+                    
+                    <div id="choices-container" class="space-y-3">
+                        ${quiz.choices.map((choice, index) => {
+                            const isAnswered = existingAnswer !== undefined;
+                            const isSelected = isAnswered && (existingAnswer === choice.isCorrect); // تحديد الإجابة التي اختارها المستخدم (في حال الإجابة)
+                            const isCorrectChoice = choice.isCorrect;
+
+                            let buttonClass = 'choice-btn w-full text-right p-4 border rounded-lg hover:bg-gray-50';
+                            if (isAnswered) {
+                                // إذا تمت الإجابة، نظهر التقييم
+                                if (isCorrectChoice) {
+                                    buttonClass = 'choice-btn w-full text-right p-4 rounded-lg correct';
+                                } else if (isSelected && !isCorrectChoice) {
+                                    buttonClass = 'choice-btn w-full text-right p-4 rounded-lg incorrect';
+                                } else {
+                                     buttonClass = 'choice-btn w-full text-right p-4 border rounded-lg text-gray-500';
+                                }
+                            }
+
+                            return `
+                                <button class="${buttonClass} text-lg" 
+                                        data-correct="${choice.isCorrect}" 
+                                        onclick="submitAnswer(${moduleId}, ${choice.isCorrect})">
+                                    ${choice.text}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    ${feedbackHTML}
+
+                    <div class="mt-8 pt-4 border-t flex justify-end">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200"
+                                onclick="goBackToHome()">
+                            العودة للوحدات
+                        </button>
+                    </div>
+                </div>
+            `;
+
+             // بعد تحميل العناصر، إذا كانت هناك إجابة سابقة، قم بتعطيل الأزرار
+             if (existingAnswer !== undefined) {
+                document.querySelectorAll('#choices-container button').forEach(btn => btn.disabled = true);
+            }
+        }
+
+        function renderResults() {
+            currentState.view = 'results';
+            const totalModules = courseData.length;
+            const correctAnswers = Object.values(currentState.answers).filter(result => result === true).length;
+            const scorePercentage = (correctAnswers / totalModules) * 100;
+            
+            let message, color;
+            if (scorePercentage === 100) {
+                message = "تهانينا! أنت خبير في الأساسيات. استمر في تطوير معلوماتك!";
+                color = "text-green-600";
+            } else if (scorePercentage >= 75) {
+                message = "نتيجة جيدة! لديك فهم قوي لمعظم المفاهيم.";
+                color = "text-yellow-600";
+            } else {
+                message = "هذه بداية جيدة! يرجى مراجعة الوحدات التي لم تنجح بها.";
+                color = "text-red-600";
+            }
+            
+            contentArea.innerHTML = `
+                <div class="text-center p-8 bg-gray-50 rounded-xl shadow-lg">
+                    <h2 class="text-4xl font-extrabold text-indigo-800 mb-4">نتائج الاختبار النهائي</h2>
+                    <p class="text-xl text-gray-600 mb-6">لقد أجبت على ${correctAnswers} من أصل ${totalModules} أسئلة بشكل صحيح.</p>
+                    
+                    <div class="my-8">
+                        <div class="text-6xl font-black ${color}">${scorePercentage.toFixed(0)}%</div>
+                        <p class="text-2xl font-bold mt-3 ${color}">${message}</p>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-700 mt-10 mb-5 border-b pb-3">ملخص الإجابات</h3>
+                    <ul class="space-y-3 mb-10 text-lg">
+                        ${courseData.map(module => `
+                            <li class="p-3 rounded-lg flex justify-between items-center ${currentState.answers[module.id] === true ? 'bg-green-100' : 'bg-red-100'}">
+                                <span class="font-semibold">${module.title}</span>
+                                <div>
+                                    <span class="font-bold ${currentState.answers[module.id] === true ? 'text-green-700' : 'text-red-700'}">
+                                        ${currentState.answers[module.id] === true ? 'صحيحة' : 'خاطئة'}
+                                    </span>
+                                    <button class="mr-3 text-sm text-indigo-600 hover:underline" onclick="showQuiz(${module.id}, true)">
+                                        (مراجعة)
+                                    </button>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition duration-200"
+                            onclick="goBackToHome()">
+                        العودة للصفحة الرئيسية
+                    </button>
+                </div>
+            `;
+        }
+
+        // -----------------------------------------------------------
+        // 2. وظائف التحكم (Controller Functions)
+        // -----------------------------------------------------------
+
+        function goBackToHome() {
+            currentState.view = 'home';
+            currentState.currentModuleId = null;
+            renderHome();
+        }
+
+        function showModule(moduleId) {
+            renderModule(moduleId);
+        }
+
+        function showQuiz(moduleId, isReview = false) {
+             renderQuiz(moduleId, isReview);
+        }
+        
+        function showResults() {
+             renderResults();
+        }
+
+        function submitAnswer(moduleId, isCorrect) {
+            // حفظ النتيجة في حالة التطبيق
+            currentState.answers[moduleId] = isCorrect;
+            
+            // إعادة عرض الاختبار مع إظهار النتيجة الصحيحة والخاطئة
+            renderQuiz(moduleId, true); 
+
+            // تحديث عرض الصفحة الرئيسية إذا تم الانتهاء من جميع الوحدات
+            if (Object.keys(currentState.answers).length === courseData.length) {
+                // إظهار النتائج تلقائياً بعد الإجابة على السؤال الأخير
+                setTimeout(showResults, 1500); 
+            }
+        }
+        
+        // -----------------------------------------------------------
+        // 3. بدء التطبيق
+        // -----------------------------------------------------------
+        
+        // البدء بتحميل الصفحة الرئيسية عند تشغيل التطبيق
+        window.onload = renderHome; 
+
+    </script>
+</body>
+</html>
